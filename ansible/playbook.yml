@@ -1,0 +1,11 @@
+---
+
+- hosts: servers
+  become: true
+
+  tasks:
+  - name: "install apache, HAProxy, Prometheus"
+    apt:
+      name: ['apache2', 'haproxy', 'prometheus']
+      state: present
+      update_cache: yes

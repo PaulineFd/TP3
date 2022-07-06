@@ -12,16 +12,15 @@ services:
     command: >
       bash -c "apt update
       && apt install -y ansible openssh-server
-      && ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
-      && sshpass -f /root/sshpassword.txt ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@host01
-      && sshpass -f /root/sshpassword.txt ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@host02       
+      # && ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
+      # && sshpass -f /root/sshpassword.txt ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@host01
+      # && sshpass -f /root/sshpassword.txt ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@host02       
       && bash"
     ports:
       - 8044:84
     volumes:
       - ansible_vol:/var/ans
       - ./files/:/files/
-      - ./hosts:/etc/ansible/hosts
       - ./sshpassword.txt:/root/sshpassword.txt
 
   host01:
