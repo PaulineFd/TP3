@@ -1,15 +1,18 @@
 ---
 
+# WEB
 - hosts: servers
   become: true
-
-  tasks:
-    - name: "install apache, HAProxy, Prometheus"
-      apt:
-        name: ['apache2', 'haproxy', 'prometheus']
-        state: present
-        update_cache: yes
-    - name: Create directories
-      file:
-        path: /etc/ansible/tmp/pauline
-        state: directory
+  roles:
+    - web
+# DIRECTORIES
+- hosts: servers
+  become: true
+  roles:
+    - directories 
+# USERS
+- hosts: servers
+  become: True
+  roles:
+    - users
+    
