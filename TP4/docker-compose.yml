@@ -1,0 +1,74 @@
+version: "3.3"
+services:
+  master:
+    image: ubuntu
+    container_name: master01
+    hostname: master01
+    depends_on:
+      - host01
+      - host02
+    stdin_open: true
+    tty: true
+    command: >
+      bash -c "apt update
+      && apt install -y ansible openssh-server
+      # && ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
+      # && sshpass -f /root/sshpassword.txt ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@host01
+      # && sshpass -f /root/sshpassword.txt ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@host02       
+      && bash"
+    ports:
+      - 8044:84
+    volumes:
+      - ansible_vol:/var/ans
+      - ./files/:/files/
+      - ./sshpassword.txt:/root/sshpassword.txt
+
+  host01:
+    image: ubuntu
+    container_name: host01
+    hostname: host01
+    stdin_open: true
+    tty: true
+    command: >
+      bash -c "apt update && apt upgrade -y
+      && DEBIAN_FRONTED=noninteractive
+      && mkdir /run/sshd
+      && apt install -y apt --no-install-recommends python3 openssh-server sudo
+      && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+      && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+      && echo 'root:toor' | chpasswd
+      && /usr/sbin/sshd -D"
+    expose:
+      - 22
+    ports:
+      - 8042:80
+    volumes:
+      - ansible_vol:/var/ans
+
+  host02:
+    image: ubuntu
+    container_name: host02
+    hostname: host02
+    stdin_open: true
+    tty: true
+    command: >
+      bash -c "apt update && apt upgrade -y
+      && DEBIAN_FRONTED=noninteractive
+      && mkdir /run/sshd
+      && apt install -y apt --no-install-recommends python3 openssh-server sudo
+      && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+      && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+      && echo 'root:toor' | chpasswd
+      && /usr/sbin/sshd -D"
+    expose:
+      - 22
+    ports:
+      - 8043:81
+    volumes:
+      - ansible_vol:/var/ans
+
+volumes:
+  ansible_vol:
+
+      
+  
