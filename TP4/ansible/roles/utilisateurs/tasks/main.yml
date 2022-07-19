@@ -7,5 +7,5 @@
     password: "{{ item.password }}"
     shell: "{{ shell if shell is defined else default_shell }}"
     createhome: yes
-  loop: '{{ users }}'
+  with_items: "{{ users }}"
   loop_control: "username: {{ item.username }}, password: {{ 'True' if item.password is defined else 'False' }}"
