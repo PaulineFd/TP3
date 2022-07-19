@@ -1,18 +1,9 @@
 ---
 # tasks file for users
-- name: Create user, shell, home directories
-  user:
-    name: "toto"
-    uid: "{{ item.uid | default(omit, True) }}"
-    password: "toto-12"
-    shell: "{{ item.shell if item.shell is defined else default_shell"
+- name: Create users, shell, home directories
+  users: 
+    name: "{{ username }}"
+    uid: "{{ uid | default(omit, True) }}"
+    password: "{{ password }}"
+    shell: "{{ shell if shell is defined else default_shell }}"
     createhome: yes
-
-- name: Create user, shell, home directories
-  user:
-    name: "titi"
-    uid: "{{ item.uid | default(omit, True) }}"
-    password: "titi-34"
-    shell: "{{ item.shell if item.shell is defined else default_shell"
-    createhome: yes
-

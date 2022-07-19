@@ -13,4 +13,4 @@
 - name: Create directory
   file:
     path: /etc/ansible/Dossier_3
-    state: directory
+     

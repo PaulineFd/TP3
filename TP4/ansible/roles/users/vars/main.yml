@@ -1,2 +1,10 @@
 ---
 # vars file for users
+users:
+  - username: user1
+    password: toto-12
+    shell: /bin/bash
+  
+  - username: user2
+    password: titi-34
+    shell: /bin/bash
