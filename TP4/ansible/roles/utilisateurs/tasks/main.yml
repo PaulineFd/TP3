@@ -1,7 +1,7 @@
 ---
 # tasks file for utilisateurs
 - name: Add users | create users, shell, home directories
-  users:
+  user:
     name: "{{ username }}"
     uid: "{{ uid | default(omit, True) }}"
     password: "{{ password }}"
