@@ -2,8 +2,10 @@
 # tasks file for utilisateurs
 - name: Add users | create users, shell, home directories
   user:
-    name: "{{ username }}"
-    uid: "{{ uid | default(omit, True) }}"
-    password: "{{ password }}"
+    name: "{{ item.username }}"
+    uid: "{{ item.uid | default(omit, True) }}"
+    password: "{{ item.password }}"
     shell: "{{ shell if shell is defined else default_shell }}"
     createhome: yes
+  loop: '{{ users }}'
+  loop_control: "username: {{ item.username }}, password: {{ 'True' if item.password is defined else 'False' }}"

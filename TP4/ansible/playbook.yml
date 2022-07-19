@@ -13,6 +13,6 @@
 # USERS
 - hosts: servers
   become: True
-  vars_files: vars/main.yml
+  vars_files: roles/utilisateurs/vars/main.yml
   roles:
     - utilisateurs
