@@ -9,4 +9,3 @@
     createhome: yes
   with_items: 
     - "{{ users }}"
-  loop_control: "username: {{ item.username }}, password: {{ 'True' if item.password is defined else 'False' }}"
