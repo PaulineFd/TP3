@@ -1,0 +1,16 @@
+---
+# tasks file for directories
+- name: Create directory
+  file:
+    path: /etc/ansible/Dossier_1
+    state: directory
+
+- name: Create directory
+  file:
+    path: /etc/ansible/Dossier_2
+    state: directory
+
+- name: Create directory
+  file:
+    path: /etc/ansible/Dossier_3
+     

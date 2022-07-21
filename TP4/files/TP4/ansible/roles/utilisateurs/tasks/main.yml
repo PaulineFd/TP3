@@ -1,0 +1,11 @@
+---
+# tasks file for utilisateurs
+- name: Add users | create users, shell, home directories
+  user:
+    name: "{{ item.username }}"
+    uid: "{{ item.uid | default(omit, True) }}"
+    password: "{{ item.password }}"
+    shell: "{{ shell if shell is defined else default_shell }}"
+    createhome: yes
+  with_items: 
+    - "{{ users }}"

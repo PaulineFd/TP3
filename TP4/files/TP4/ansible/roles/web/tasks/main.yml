@@ -1,0 +1,7 @@
+---
+# tasks file for web
+- name: "install apache, HAProxy"
+  apt:
+    name: ['apache2', 'haproxy']
+    state: present
+    update_cache: yes

@@ -1,0 +1,18 @@
+---
+
+# WEB
+- hosts: servers
+  become: true
+  roles:
+    - web
+# DIRECTORIES
+- hosts: servers
+  become: true
+  roles:
+    - directories 
+# USERS
+- hosts: servers
+  become: True
+  vars_files: roles/utilisateurs/vars/main.yml
+  roles:
+    - utilisateurs
