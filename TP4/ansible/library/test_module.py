@@ -4,18 +4,40 @@ from ansible.module_utils.basic import AnsibleModule
 import os
 import zipfile
 
-def zipdir(/files/TP4, ziph)
-    for root, dirs, files in os.walk(/files/TP4):
-            for file in files:
-                ziph.write(os.path.join(root,file))
-zipf= zipfile.Zipfile('Zipped_file.zip','w', zipfile.ZIP_DEFLATED)
-zipdir('backup', zipf)
-zipf.close()
+def retrieve_file_paths(dir_name):
+    filePaths = []
+    for root, directories, files in os.walk(dir_name):
+        for filename in files:
+            filePath = os.path.join(root, filename)
+            filePaths.append(filePath)
+    return filePaths 
 
-# def main():
-#     module = AnsibleModule(
+def main():
+    dir_name = 'TP4'
+    filePaths = retrieve_file_paths(dir_name)
+    print('The following list of files will be zipped: ')
+    for fileName in filePaths:
+        print(fileName)
+    
+    zip_file = zipfile.ZipFile(dir_name+'.zip', 'w')
+    with zip_file:
+        for file in filePaths:
+            zip_file.write(file)
+    print(dir_name+'.zip is created successfully!')
+    
+    module_args = dict(
+        dir_name = dict(type = str, required = True),
+        filePaths = dict(type = str,required = True)
+    )
+    module = AnsibleModule(
+        argument_spec=module_args,
+        supports_check_mode=True
+     )
+     
+    result = dict(
+        changes=False
+     )
 
-#     )
-# if __name__ == '__main__':
-#     main()
+if __name__ == "__main__" :
+    main()
 

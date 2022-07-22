@@ -1,0 +1,8 @@
+---
+- name: test my new module
+  hosts: servers
+  tasks:
+  - name: run the new module
+    test_module:
+      dir_name: 'TP4'
+      filePaths: '/files/TP4'
