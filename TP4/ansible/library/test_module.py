@@ -33,10 +33,11 @@ def main():
         argument_spec=module_args,
         supports_check_mode=True
      )
-     
+
     result = dict(
         changes=False
      )
+    module.exit_json(**result)
 
 if __name__ == "__main__" :
     main()
